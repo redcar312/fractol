@@ -13,9 +13,11 @@
 #ifndef  FRACTOL_H
 # define FRACTOL_H
 
-#include <unistd.h>
-#include <math.h>
-
+# include <unistd.h>
+# include <math.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
+# include "minilibx-linux/mlx.h"
 typedef struct t_img
 {
 	void	*mlx_img;
@@ -43,8 +45,5 @@ typedef struct t_fractal
 	t_img img;
 }	t_fractal;
 
-double mod2(struct t_fractal *t_fractal fractal);
-double	calc_real(struct *t_fractal fractal);
-double	calc_imaginary(struct *t_fractal fractal);
 
 #endif

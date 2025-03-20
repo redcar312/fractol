@@ -11,9 +11,9 @@ int   close_window(struct t_fractal *fractal)
 
 int handle_zoom(int button, struct t_fractal *fractal)
 {
-    if (button == 5)
+    if (button == Button5)
         fractal->zoom_value *= 0.99;
-    if (button == 4)
+    if (button == Button4)
         fractal->zoom_value *= 1.01;
     render_fracal(fractal);
     return (0);

@@ -21,7 +21,9 @@ static void    init_complex_nums(struct t_fractal *fractal, t_complex_num *z, t_
     if(strncmp(fractal->title, "Julia", 5))
     {
         z->x_real = map_pixels(x, (-2 * fractal->zoom_value), (2 * fractal->zoom_value), 0, 500);
-        z->_imaginary = map_pixels(y, (2 * fractal->zoom_value), (-2 * fractal->zoom_value), 0, 500);
+        z->y_imaginary = map_pixels(y, (2 * fractal->zoom_value), (-2 * fractal->zoom_value), 0, 500);
+        c->x_real = fractal->j_x;
+        c->y_imaginary = fractal->j_y;
     }
     else
     {
@@ -32,22 +34,19 @@ static void    init_complex_nums(struct t_fractal *fractal, t_complex_num *z, t_
 
     }
 }
-void    draw_pixel(int x, int y, struct t_fractal *fractal)
+7
+static void    draw_pixel(int x, int y, struct t_fractal *fractal)
 {
     t_complex_num z;
     t_complex_num c;
     int i;
 
     i = 0;
-    z.x_real = 0.0;
-    z.y_imaginary = 0.0;
-    c.x_real = map_pixels(x, (-2 * fractal->zoom_value), (2 * fractal->zoom_value), 0, 500);
-    c.y_imaginary = map_pixels(y, (2 * fractal->zoom_value), (-2 * fractal->zoom_value), 0, 500);
-
-    while(i < 150)
+    init_complex_nums(fractal, z, c);
+    while (i < 150)
     {
         z = sum_complex_num(square_complex(z), c);
-        if((z.x_real * z.x_real) + (z.y_imaginary * z.y_imaginary) > 4)
+        if ((z.x_real * z.x_real) + (z.y_imaginary * z.y_imaginary) > 4)
         {
             set_pixel_color(&fractal->img, x, y, 000000);
             return ;
@@ -64,10 +63,10 @@ void    render_fractal(struct t_fractal *fractal)
     int x;
 
     y = -1;
-    while(++y < 500)
+    while (++y < 500)
     {
         x = -1;
-        while(++x < 500)
+        while (++x < 500)
             draw_pixel(x, y, fractal);
         y++;
     }
